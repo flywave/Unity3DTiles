@@ -22,17 +22,12 @@ public class PointFileReader
 {
     private const int VERSION_NUM = 1;
 
-    class BinaryBodyReference
-    {
-        public int byteOffset = 0;
-    }
-
     class FeatureTable
     {
         public int POINTS_LENGTH = 0;
-        public BinaryBodyReference POSITION = null;
-        public BinaryBodyReference RGB = null;
-        public BinaryBodyReference NORMAL = null;
+        public ByteOffset POSITION = null;
+        public ByteOffset RGB = null;
+        public ByteOffset NORMAL = null;
     }
 
     public static List<Mesh> Read(byte[] data)

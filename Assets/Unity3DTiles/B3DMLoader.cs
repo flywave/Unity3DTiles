@@ -31,14 +31,14 @@ public class B3DMLoader : ILoader
     }
 
     public Stream LoadedStream
-    { 
+    {
         get
         {
             return loader.LoadedStream;
         }
     }
 
-    struct FeatureTable
+    class FeatureTable
     {
 #pragma warning disable 0649
         public int BATCH_LENGTH;

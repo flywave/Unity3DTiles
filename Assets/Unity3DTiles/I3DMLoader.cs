@@ -30,14 +30,14 @@ public class I3DMLoader : ILoader
     }
 
     public Stream LoadedStream
-    { 
+    {
         get
         {
             return loader.LoadedStream;
         }
     }
 
-    struct FeatureTable
+    class FeatureTable
     {
 #pragma warning disable 0649
         public int INSTANCES_LENGTH = 0;
@@ -99,18 +99,20 @@ public class I3DMLoader : ILoader
                 {
                     Debug.LogError("Unexpected non-zero length binary batch table in i3dm: " + relativeFilePath);
                 }
-                UInt32 gltfFormat  = br.ReadUInt32();
+                UInt32 gltfFormat = br.ReadUInt32();
                 if (gltfFormat != 0 && gltfFormat != 1)
                 {
                     Debug.LogError("Unexpected gltfFormat in i3dm: " + relativeFilePath);
                 }
                 string featureTableJson = new String(br.ReadChars((int)featureTableJsonLength));
                 FeatureTable ft = JsonConvert.DeserializeObject<FeatureTable>(featureTableJson);
-                if (ft.BATCH_LENGTH != 0)
+                if (ft.INSTANCES_LENGTH != 0)
                 {
                     Debug.LogError("Unexpected non-zero length feature table BATCH_LENGTH in i3dm: " +
                                    relativeFilePath);
                 }
+                byte[] featureTableBinary = br.ReadBytes((int)featureTableBinaryLength);
+
             }
         }
     }
